@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+
+  apache-cassandra:
+    image: 'cassandra'
+    container_name: 'apache-cassandra'
+    networks:
+      - backend
+    healthcheck:
+      test: cqlsh
+      interval: 60s
+      retries: 5
+      timeout: 10s
+
+  group-service:
+    container_name: group-service
+    build:
+      context: /Users/denpool/IdeaProjects/Bank_App/Group-Service
+    environment:
+      SPRING.CONFIG.IMPORT: optional:configserver:config:8888
+    restart: always
+    depends_on:
+      - config
+    networks:
+      - backend
+
+
+  config:
+    container_name: config
+    build:
+      context: /Users/denpool/Downloads/Config-Service
+    restart: always
+    depends_on:
+      - apache-cassandra
+    ports:
+      - "8888:8888"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
