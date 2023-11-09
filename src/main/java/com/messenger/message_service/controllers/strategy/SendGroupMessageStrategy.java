@@ -45,8 +45,10 @@ public class SendGroupMessageStrategy implements MessageActionStrategy {
             List<GroupResponse> groupResponses = groupServiceClient.getAllUsersByGroupId(input.getGroupId()).getBody();
 
             for (GroupResponse groupResponse : groupResponses) {
-                messagingTemplate.convertAndSend("/topic/user/" + groupResponse.getUser_id(), message);
+                messagingTemplate.convertAndSend("/group/" + groupResponse.getGroup_id(), message);
             }
         }
+
+
     }
 }

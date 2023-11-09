@@ -33,7 +33,7 @@ public class FetchGroupMessagesStrategy implements MessageActionStrategy {
         if (groupServiceClient.getGroupByGroupId(input.getGroupId()).getBody() != null) {
             List<MessageEntity> messages = relayServiceClient.getMessagesByGroupId(input.getGroupId()).getBody();
             OutputTransportDto output = new OutputTransportDto(TransportActionEnum.FETCH_GROUP_MESSAGES, messages);
-            messagingTemplate.convertAndSend("/topic/user/" + input.getUserId(), output);
+            messagingTemplate.convertAndSend("/topic/group/" + input.getGroupId(), output);
         }
     }
 }

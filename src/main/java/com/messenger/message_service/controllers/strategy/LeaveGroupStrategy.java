@@ -31,7 +31,7 @@ public class LeaveGroupStrategy implements MessageActionStrategy {
             LeaveGroupDTO leaveGroupDTO = new LeaveGroupDTO();
             leaveGroupDTO.setGroupName(groupServiceClient.getGroupNameById(input.getGroupId()).getBody().getName());
             OutputTransportDto output = new OutputTransportDto(TransportActionEnum.LEAVE_GROUP, leaveGroupDTO);
-            messagingTemplate.convertAndSend("/topic/user/" + input.getUserId(), output);
+            messagingTemplate.convertAndSend("/topic/group/" + input.getGroupId(), output);
         }
     }
 }
