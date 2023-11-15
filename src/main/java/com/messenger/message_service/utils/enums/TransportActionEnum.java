@@ -1,4 +1,4 @@
-package com.messenger.message_service.utils;
+package com.messenger.message_service.utils.enums;
 
 public enum TransportActionEnum {
 

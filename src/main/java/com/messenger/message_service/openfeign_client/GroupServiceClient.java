@@ -1,7 +1,7 @@
 package com.messenger.message_service.openfeign_client;
 
+import com.messenger.message_service.dto.openfeignDto.GroupMembershipResponseForUser;
 import com.messenger.message_service.dto.openfeignDto.GroupNameResponse;
-import com.messenger.message_service.dto.openfeignDto.GroupResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,12 +19,12 @@ public interface GroupServiceClient {
     @GetMapping("/groups/{groupId}")
     ResponseEntity<GroupNameResponse> getGroupByGroupId(@PathVariable("groupId") int groupId);
 
-    @GetMapping("/membership/group-id/{groupId}")
-    ResponseEntity<List<GroupResponse>> getAllUsersByGroupId(@PathVariable("groupId") int groupId);
+    @GetMapping("/group-memberships/user/{userId}")
+    ResponseEntity<List<GroupMembershipResponseForUser>> getAllGroupsByUserId(@PathVariable Long userId);
 
-    @DeleteMapping("/membership/{userId}/{groupId}")
-    ResponseEntity<Object> deleteUserFromGroup(@PathVariable("userId") int userId, @PathVariable("groupId") int groupId);
+    @GetMapping("/groups/{groupId}/users")
+    ResponseEntity<List<GroupMembershipResponseForUser>> getAllUsersByGroupId(@PathVariable Long groupId);
 
-    @GetMapping("/groups/{groupId}")
-    ResponseEntity<GroupNameResponse> getGroupNameById(@PathVariable("groupId") int groupId);
+    @DeleteMapping("/group-memberships/user/{userId}/group/{groupId}")
+    ResponseEntity<Void> deleteMembershipByGroupIdAndUserId(@PathVariable Long userId, @PathVariable Long groupId);
 }

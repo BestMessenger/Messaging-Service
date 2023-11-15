@@ -1,0 +1,18 @@
+package com.messenger.message_service.utils.enums;
+
+public enum MessageTypeEnum {
+    LEAVE_GROUP_MESSAGE,
+    INVITE_TO_GROUP_MESSAGE,
+    TEXT_MESSAGE,
+    IMAGE_MESSAGE,
+    AUDIO_MESSAGE,
+    VIDEO_MESSAGE,
+    EMOJI_STICKER,
+    FILE_MESSAGE,
+    LINK_MESSAGE,
+    LOCATION_MESSAGE,
+    CONTACT_MESSAGE,
+    SYSTEM_NOTIFICATION,
+    QUOTE_REPLY_MESSAGE,
+    SYSTEM_MESSAGE
+}

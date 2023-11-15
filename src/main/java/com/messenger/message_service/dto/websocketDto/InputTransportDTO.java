@@ -1,6 +1,6 @@
-package com.messenger.message_service.dto;
+package com.messenger.message_service.dto.websocketDto;
 
-import com.messenger.message_service.utils.TransportActionEnum;
+import com.messenger.message_service.utils.enums.TransportActionEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InputTransportDTO {
-    private int userId;
     private TransportActionEnum action;
-    private int groupId;
+    private Long sender_id;
+    private Long group_id;
     private String message;
 }
