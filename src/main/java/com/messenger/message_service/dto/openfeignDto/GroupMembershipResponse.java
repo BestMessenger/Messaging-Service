@@ -13,4 +13,5 @@ public class GroupMembershipResponse {
     private Long user_id;
     private String role;
     private String status_in_group;
+    private Long offset_message_id;
 }

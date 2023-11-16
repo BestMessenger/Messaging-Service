@@ -1,5 +1,6 @@
 package com.messenger.message_service.openfeign_client;
 
+import com.messenger.message_service.dto.openfeignDto.GroupMembershipResponse;
 import com.messenger.message_service.dto.openfeignDto.GroupMembershipResponseForUser;
 import com.messenger.message_service.dto.openfeignDto.GroupNameResponse;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -27,4 +28,9 @@ public interface GroupServiceClient {
 
     @DeleteMapping("/group-memberships/user/{userId}/group/{groupId}")
     ResponseEntity<Void> deleteMembershipByGroupIdAndUserId(@PathVariable Long userId, @PathVariable Long groupId);
+
+    @GetMapping("/group-memberships/user/{userId}/group/{groupId}")
+    ResponseEntity<GroupMembershipResponse> getGroupMembershipByUserIdAndGroupId(
+            @PathVariable Long userId,
+            @PathVariable Long groupId);
 }

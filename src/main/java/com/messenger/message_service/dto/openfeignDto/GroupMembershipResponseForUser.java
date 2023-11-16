@@ -10,11 +10,11 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GroupMembershipResponseForUser {
-
     private Long id;
     private GroupResponse group;
     private Long user;
     private String role;
     private String statusInGroup;
     private LocalDate joinDate;
+    private Long offsetMessageId;
 }

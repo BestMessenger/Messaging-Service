@@ -8,6 +8,7 @@ import com.messenger.message_service.openfeign_client.GroupServiceClient;
 import com.messenger.message_service.repository.MessageRepository;
 import com.messenger.message_service.utils.enums.MessageTypeEnum;
 import com.messenger.message_service.utils.enums.TransportActionEnum;
+import com.messenger.message_service.utils.userChecker.UserChecker;
 import com.messenger.message_service.utils.userChecker.UserCheckerImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
 public class LeaveGroupStrategy implements ActionStrategy, DefaultOperationWithMessages<UserResponse> {
 
     private final GroupServiceClient groupServiceClient;
-    private final UserCheckerImpl userCheckerImpl;
+    private final UserChecker<UserResponse> userChecker;
     private final MessageRepository messageRepository;
 
     @Override
@@ -43,12 +44,15 @@ public class LeaveGroupStrategy implements ActionStrategy, DefaultOperationWithM
             saveMessageInDatabase(model);
 
             OutputTransportDto outputMessage = new OutputTransportDto();
-            outputMessage.setDestination("/topic/group/" + inputTransportDTO.getGroup_id());
+            outputMessage.setDestination("/group/" + inputTransportDTO.getGroup_id());
             outputMessage.setMessage(model);
 
             return outputMessage;
         }
-        throw new RuntimeException("Exception"); // todo sent error to websocket
+        return new OutputTransportDto(
+                "/error" + inputTransportDTO.getSender_id(),
+                "User with id" + inputTransportDTO.getSender_id() + " not exist"
+        );
     }
 
     @Override
@@ -63,6 +67,6 @@ public class LeaveGroupStrategy implements ActionStrategy, DefaultOperationWithM
 
     @Override
     public UserResponse checkUserInDatabase(Long userId) {
-        return userCheckerImpl.isExistUserInProfileService(userId);
+        return userChecker.isExistUserInProfileService(userId);
     }
 }

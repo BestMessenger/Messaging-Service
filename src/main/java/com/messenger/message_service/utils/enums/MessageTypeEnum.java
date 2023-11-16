@@ -1,6 +1,7 @@
 package com.messenger.message_service.utils.enums;
 
 public enum MessageTypeEnum {
+    ERROR_MESSAGE,
     LEAVE_GROUP_MESSAGE,
     INVITE_TO_GROUP_MESSAGE,
     TEXT_MESSAGE,
@@ -14,5 +15,6 @@ public enum MessageTypeEnum {
     CONTACT_MESSAGE,
     SYSTEM_NOTIFICATION,
     QUOTE_REPLY_MESSAGE,
-    SYSTEM_MESSAGE
+    SYSTEM_MESSAGE,
+    FETCH_MESSAGES
 }
