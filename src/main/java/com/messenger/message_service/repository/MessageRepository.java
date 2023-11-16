@@ -16,12 +16,11 @@ public interface MessageRepository extends JpaRepository<MessageModel, Long> {
     @Query("SELECT MIN(id) FROM MessageModel WHERE groupId = :groupId")
     Long findMinIdByGroup(Long groupId);
 
-    List<MessageModel> findAllByGroupIdOrderBySend_datetimeAsc(Long groupId);
+    List<MessageModel> findAllByGroupIdOrderBySendDatetimeAsc(Long groupId);
 
     @Query("SELECT m " +
             "FROM MessageModel m " +
             "WHERE m.groupId = :groupId AND m.id > :offsetId " +
-            "ORDER BY m.send_datetime DESC")
-    List<MessageModel> findAllMessagesInGroupStartFromOffset(Long groupId, Long offsetId);
+            "ORDER BY m.sendDatetime DESC")
+    List<MessageModel> searchAllMessagesInGroupStartFromOffset(Long groupId, Long offsetId);
 }
-

@@ -33,10 +33,10 @@ public class MessageModel {
     private Long groupId;
 
     @Column(name = "sender_id")
-    private Long sender_id;
+    private Long senderId;
 
     @Column(name = "send_datetime")
-    private LocalDateTime send_datetime;
+    private LocalDateTime sendDatetime;
 
     @Column(name = "username")
     private String username;

@@ -28,8 +28,8 @@ public class SendGroupMessageStrategy implements ActionStrategy, DefaultOperatio
                     .messageType(MessageTypeEnum.TEXT_MESSAGE)
                     .message(inputTransportDTO.getMessage()) //todo add env in docker
                     .groupId(inputTransportDTO.getGroup_id())
-                    .sender_id(inputTransportDTO.getSender_id())
-                    .send_datetime(LocalDateTime.now())
+                    .senderId(inputTransportDTO.getSender_id())
+                    .sendDatetime(LocalDateTime.now())
                     .username(user.getUsername())
                     .build();
             saveMessageInDatabase(model);
@@ -41,8 +41,8 @@ public class SendGroupMessageStrategy implements ActionStrategy, DefaultOperatio
             return outputMessage;
         }
         return new OutputTransportDto(
-                "/error" + inputTransportDTO.getSender_id(),
-                "User with id" + inputTransportDTO.getSender_id() + " not exist"
+                "/error/" + inputTransportDTO.getSender_id(),
+                "User with id " + inputTransportDTO.getSender_id() + " not exist"
         );
     }
 

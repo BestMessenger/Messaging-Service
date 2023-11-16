@@ -22,6 +22,6 @@ public class MessageService {
     }
 
     public List<MessageModel> getMessagesByGroupId(Long groupId) {
-        return messageRepository.findAllByGroupIdOrderBySend_datetimeAsc(groupId);
+        return messageRepository.findAllByGroupIdOrderBySendDatetimeAsc(groupId);
     }
 }

@@ -37,8 +37,8 @@ public class LeaveGroupStrategy implements ActionStrategy, DefaultOperationWithM
                     .messageType(MessageTypeEnum.LEAVE_GROUP_MESSAGE)
                     .message(user.getUsername() + " leaved group ") //todo add env in docker
                     .groupId(inputTransportDTO.getGroup_id())
-                    .sender_id(inputTransportDTO.getSender_id())
-                    .send_datetime(LocalDateTime.now())
+                    .senderId(inputTransportDTO.getSender_id())
+                    .sendDatetime(LocalDateTime.now())
                     .username(user.getUsername())
                     .build();
             saveMessageInDatabase(model);

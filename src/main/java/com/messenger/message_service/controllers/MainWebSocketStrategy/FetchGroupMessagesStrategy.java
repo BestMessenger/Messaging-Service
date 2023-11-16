@@ -33,15 +33,15 @@ public class FetchGroupMessagesStrategy implements ActionStrategy, DefaultOperat
                     inputTransportDTO.getGroup_id()
             ).getBody();
 
-            List<MessageModel> messages = messageRepository.findAllMessagesInGroupStartFromOffset(
+            List<MessageModel> messages = messageRepository.searchAllMessagesInGroupStartFromOffset(
                     inputTransportDTO.getGroup_id(), response.getOffset_message_id());
 
             MessageModel model = MessageModel.builder()
                     .messageType(MessageTypeEnum.FETCH_MESSAGES)
                     .message(user.getUsername() + " fetch messages") //todo add env in docker
                     .groupId(inputTransportDTO.getGroup_id())
-                    .sender_id(inputTransportDTO.getSender_id())
-                    .send_datetime(LocalDateTime.now())
+                    .senderId(inputTransportDTO.getSender_id())
+                    .sendDatetime(LocalDateTime.now())
                     .username(user.getUsername())
                     .build();
             saveMessageInDatabase(model);

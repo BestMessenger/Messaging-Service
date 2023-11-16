@@ -18,7 +18,7 @@ public class UserCheckerImpl implements UserChecker<UserResponse> {
         try {
             return userProfileServiceClient.getUserById(userId);
         } catch (FeignException.NotFound e) {
-            throw new NoEntityFoundException("User with id " + userId + " not exist");
+            return null;
         }
     }
 }
