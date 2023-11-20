@@ -1,6 +1,9 @@
 package com.messenger.message_service.models;
 
+import com.messenger.message_service.utils.enums.MessageTypeEnum;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,17 +12,32 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@Entity
+@Table(name = "Message_Table")
 public class MessageModel {
 
-    private int sentFromId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-    private LocalDateTime timestamp;
+    @Column(name = "message_type")
+    @Enumerated(EnumType.STRING)
+    private MessageTypeEnum messageType;
 
-    private int messageId;
+    @Column(name = "message")
+    private String message;
 
-    private String content_type;
+    @Column(name = "groupId")
+    private Long groupId;
 
-    private String media_url;
+    @Column(name = "sender_id")
+    private Long senderId;
 
-    private int groupId;
+    @Column(name = "send_datetime")
+    private LocalDateTime sendDatetime;
+
+    @Column(name = "file_uri")
+    private String fileUrl;
 }
