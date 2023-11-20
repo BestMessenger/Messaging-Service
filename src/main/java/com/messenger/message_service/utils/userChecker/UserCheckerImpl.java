@@ -14,7 +14,7 @@ public class UserCheckerImpl implements UserChecker<UserResponse> {
     private final UserProfileServiceClient userProfileServiceClient;
 
     @Override
-    public UserResponse isExistUserInProfileService(Long userId) {
+    public UserResponse isExistUserInProfileService(Long userId, Long groupId) {
         try {
             return userProfileServiceClient.getUserById(userId);
         } catch (FeignException.NotFound e) {

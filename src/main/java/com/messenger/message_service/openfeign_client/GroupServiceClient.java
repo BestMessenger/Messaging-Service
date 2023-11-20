@@ -3,11 +3,13 @@ package com.messenger.message_service.openfeign_client;
 import com.messenger.message_service.dto.openfeignDto.GroupMembershipResponse;
 import com.messenger.message_service.dto.openfeignDto.GroupMembershipResponseForUser;
 import com.messenger.message_service.dto.openfeignDto.GroupNameResponse;
+import com.messenger.message_service.utils.enums.RoleUserInGroupEnum;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
@@ -33,4 +35,7 @@ public interface GroupServiceClient {
     ResponseEntity<GroupMembershipResponse> getGroupMembershipByUserIdAndGroupId(
             @PathVariable Long userId,
             @PathVariable Long groupId);
+
+    @PutMapping("/group-memberships/user/{userId}/group/{groupId}/change-role/{role}")
+    GroupMembershipResponse changeRoleUserInGroup(@PathVariable Long userId, @PathVariable Long groupId, @PathVariable RoleUserInGroupEnum role);
 }

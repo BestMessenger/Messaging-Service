@@ -38,9 +38,6 @@ public class MessageModel {
     @Column(name = "send_datetime")
     private LocalDateTime sendDatetime;
 
-    @Column(name = "username")
-    private String username;
-
     @Column(name = "file_uri")
     private String fileUrl;
 }

@@ -20,7 +20,8 @@ public interface MessageRepository extends JpaRepository<MessageModel, Long> {
 
     @Query("SELECT m " +
             "FROM MessageModel m " +
-            "WHERE m.groupId = :groupId AND m.id > :offsetId " +
-            "ORDER BY m.sendDatetime DESC")
+            "WHERE m.groupId = :groupId " +
+            "AND m.id > :offsetId " +
+            "ORDER BY m.sendDatetime ASC")
     List<MessageModel> searchAllMessagesInGroupStartFromOffset(Long groupId, Long offsetId);
 }

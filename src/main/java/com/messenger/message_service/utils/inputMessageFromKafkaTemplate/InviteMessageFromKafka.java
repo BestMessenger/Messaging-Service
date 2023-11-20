@@ -1,21 +1,21 @@
 package com.messenger.message_service.utils.inputMessageFromKafkaTemplate;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.sql.Timestamp;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class GroupInviteMessageFromKafka implements MessageFromKafka {
-    private Long date_responded;
-    private Long date_sent;
+@Builder
+public class InviteMessageFromKafka implements MessageFromKafka {
+    private Timestamp date_responded;
+    private Timestamp date_sent;
     private Long group_id;
     private Long id;
     private Long recipient_id;
     private Long sender_id;
     private String invitation_status;
+    private String offset_messages;
 
     @Override
     public Long getUser_id() {
