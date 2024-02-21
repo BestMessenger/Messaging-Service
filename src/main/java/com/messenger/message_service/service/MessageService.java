@@ -9,7 +9,6 @@ import com.messenger.message_service.models.MessageModel;
 import com.messenger.message_service.repository.MessageRepository;
 import com.messenger.message_service.utils.userChecker.UserChecker;
 import lombok.AllArgsConstructor;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +25,14 @@ public class MessageService {
     }
 
     public Long findMinIdByGroup(Long groupId) {
+        return messageRepository.findMinIdByGroup(groupId);
+    }
+
+    public Long getMaxMessageId(Long groupId) {
+        return messageRepository.findMaxIdByGroup(groupId);
+    }
+
+    public Long getMinMessageId(Long groupId) {
         return messageRepository.findMinIdByGroup(groupId);
     }
 
@@ -52,4 +59,5 @@ public class MessageService {
         }
         throw new NoEntityFoundException("the user " + messageModel.getSenderId() + " is not a member of group " + messageModel.getGroupId() + " or does not exist");
     }
+
 }
