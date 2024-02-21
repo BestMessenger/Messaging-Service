@@ -2,7 +2,6 @@ package com.messenger.message_service.controllers;
 
 import com.messenger.message_service.dto.websocketDto.MessageRequest;
 import com.messenger.message_service.dto.websocketDto.MessageResponse;
-import com.messenger.message_service.models.MessageModel;
 import com.messenger.message_service.service.MessageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -29,8 +28,14 @@ public class MessageController {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved the maximum message ID"),
             @ApiResponse(responseCode = "404", description = "Group not found")
     })
-    public ResponseEntity<Long> getMaxMessageId(@Parameter(description = "Group ID", required = true) @PathVariable Long groupId) {
-        return ResponseEntity.ok(messageService.findMaxIdByGroup(groupId));
+    public ResponseEntity<Long> getMaxMessageId(@PathVariable Long groupId) {
+        Long maxMessageId = messageService.getMaxMessageId(groupId);
+
+        if (maxMessageId != null) {
+            return ResponseEntity.ok(maxMessageId);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
@@ -43,8 +48,14 @@ public class MessageController {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved the minimum message ID"),
             @ApiResponse(responseCode = "404", description = "Group not found")
     })
-    public ResponseEntity<Long> getMinMessageId(@Parameter(description = "Group ID", required = true) @PathVariable Long groupId) {
-        return ResponseEntity.ok(messageService.findMinIdByGroup(groupId));
+    public ResponseEntity<Long> getMinMessageId(@PathVariable Long groupId) {
+        Long minMessageId = messageService.getMinMessageId(groupId);
+
+        if (minMessageId != null) {
+            return ResponseEntity.ok(minMessageId);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/group/{groupId}")
@@ -56,8 +67,14 @@ public class MessageController {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved messages in the group"),
             @ApiResponse(responseCode = "404", description = "Group not found")
     })
-    public ResponseEntity<List<MessageResponse>> getMessagesByGroupIdOrderByDateTime(@Parameter(description = "Group ID", required = true) @PathVariable Long groupId) {
-        return ResponseEntity.ok(messageService.getMessagesByGroupId(groupId));
+    public ResponseEntity<List<MessageResponse>> getMessagesByGroupIdOrderByDateTime(@PathVariable Long groupId) {
+        List<MessageResponse> messages = messageService.getMessagesByGroupId(groupId);
+
+        if (!messages.isEmpty()) {
+            return ResponseEntity.ok(messages);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
@@ -74,7 +91,13 @@ public class MessageController {
             @ApiResponse(responseCode = "404", description = "Group not found or user not a member")
     })
     public ResponseEntity<List<MessageResponse>> fetchGroupMessages(@PathVariable Long userId, @PathVariable Long groupId) {
-        return ResponseEntity.ok(messageService.getGroupMessagesByUserIdAndGroupId(userId, groupId));
+        List<MessageResponse> groupMessages = messageService.getGroupMessagesByUserIdAndGroupId(userId, groupId);
+
+        if (!groupMessages.isEmpty()) {
+            return ResponseEntity.ok(groupMessages);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/create")
@@ -87,8 +110,13 @@ public class MessageController {
             @ApiResponse(responseCode = "404", description = "User is not a member of the group or does not exist")
     })
     public ResponseEntity<MessageResponse> createMessage(
-            @Parameter(description = "Message details", required = true)
             @RequestBody MessageRequest request) {
-        return ResponseEntity.ok(messageService.createMessage(request));
+        MessageResponse createdMessage = messageService.createMessage(request);
+
+        if (createdMessage != null) {
+            return ResponseEntity.ok(createdMessage);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
